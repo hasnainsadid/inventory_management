@@ -1,102 +1,74 @@
 @extends('backend.layouts.app')
 @section('title', 'Categories')
 @section('content')
-    <div class="card">
-        <div class="card-datatable table-responsive pt-0">
-            <table class="datatables-basic table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th>id</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Date</th>
-                        <th>Salary</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-    </div>
-    <!-- Modal to add new record -->
-    <div class="offcanvas offcanvas-end" id="add-new-record">
-        <div class="offcanvas-header border-bottom">
-            <h5 class="offcanvas-title" id="exampleModalLabel">New Record</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body flex-grow-1">
-            <form class="add-new-record pt-0 row g-2" id="form-add-new-record" onsubmit="return false">
-                <div class="col-sm-12 form-control-validation">
-                    <label class="form-label" for="basicFullname">Full Name</label>
-                    <div class="input-group input-group-merge">
-                        <span id="basicFullname2" class="input-group-text"><i class="icon-base ti tabler-user"></i></span>
-                        <input type="text" id="basicFullname" class="form-control dt-full-name" name="basicFullname"
-                            placeholder="John Doe" aria-label="John Doe" aria-describedby="basicFullname2" />
-                    </div>
-                </div>
-                <div class="col-sm-12 form-control-validation">
-                    <label class="form-label" for="basicPost">Post</label>
-                    <div class="input-group input-group-merge">
-                        <span id="basicPost2" class="input-group-text"><i class="icon-base ti tabler-briefcase"></i></span>
-                        <input type="text" id="basicPost" name="basicPost" class="form-control dt-post"
-                            placeholder="Web Developer" aria-label="Web Developer" aria-describedby="basicPost2" />
-                    </div>
-                </div>
-                <div class="col-sm-12 form-control-validation">
-                    <label class="form-label" for="basicEmail">Email</label>
-                    <div class="input-group input-group-merge">
-                        <span class="input-group-text"><i class="icon-base ti tabler-mail"></i></span>
-                        <input type="text" id="basicEmail" name="basicEmail" class="form-control dt-email"
-                            placeholder="john.doe@example.com" aria-label="john.doe@example.com" />
-                    </div>
-                    <div class="form-text">You can use letters, numbers & periods</div>
-                </div>
-                <div class="col-sm-12 form-control-validation">
-                    <label class="form-label" for="basicDate">Joining Date</label>
-                    <div class="input-group input-group-merge">
-                        <span id="basicDate2" class="input-group-text"><i class="icon-base ti tabler-calendar"></i></span>
-                        <input type="text" class="form-control dt-date" id="basicDate" name="basicDate"
-                            aria-describedby="basicDate2" placeholder="MM/DD/YYYY" aria-label="MM/DD/YYYY" />
-                    </div>
-                </div>
-                <div class="col-sm-12 form-control-validation">
-                    <label class="form-label" for="basicSalary">Salary</label>
-                    <div class="input-group input-group-merge">
-                        <span id="basicSalary2" class="input-group-text"><i
-                                class="icon-base ti tabler-currency-dollar"></i></span>
-                        <input type="number" id="basicSalary" name="basicSalary" class="form-control dt-salary"
-                            placeholder="12000" aria-label="12000" aria-describedby="basicSalary2" />
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <button type="submit" class="btn btn-primary data-submit me-sm-4 me-1">Submit</button>
-                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
-                </div>
-            </form>
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <!-- Basic Bootstrap Table -->
+        <div class="card">
+            <h5 class="card-header">All Categories</h5>
+            <div class="table-responsive text-nowrap">
+                <table class="table" id="category-table">
+                    <thead>
+                        <tr>
+                            <th>Sl No.</th>
+                            <th>Name</th>
+                            <th>Slug</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 @endsection
-
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('backend') }}/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
-  <link rel="stylesheet" href="{{ asset('backend') }}/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
-  <link rel="stylesheet" href="{{ asset('backend') }}/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
-  <link rel="stylesheet" href="{{ asset('backend') }}/vendor/libs/flatpickr/flatpickr.css" />
-  <!-- Row Group CSS -->
-  <link rel="stylesheet" href="{{ asset('backend') }}/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css" />
-  <!-- Form Validation -->
-  <link rel="stylesheet" href="{{ asset('backend') }}/vendor/libs/@form-validation/form-validation.css" />
-@endpush
-
 @push('scripts')
-    <script src="{{ asset('backend') }}/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <!-- Flat Picker -->
-    <script src="{{ asset('backend') }}/vendor/libs/moment/moment.js"></script>
-    <script src="{{ asset('backend') }}/vendor/libs/flatpickr/flatpickr.js"></script>
-    <script src="{{ asset('backend') }}/vendor/libs/@form-validation/popular.js"></script>
-    <script src="{{ asset('backend') }}/vendor/libs/@form-validation/bootstrap5.js"></script>
-    <script src="{{ asset('backend') }}/vendor/libs/@form-validation/auto-focus.js"></script>
-    <script src="{{ asset('backend') }}/js/tables-datatables-basic.js"></script>
+    <script>
+        $(function() {
+            $('#category-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('categories.index') }}",
+                columns: [{
+                        data: null,
+                        name: 'Sl no.',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'slug',
+                        name: 'slug'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    },
+                    {
+                        data: 'actions',
+                        name: 'actions',
+                        orderable: true,
+                        searchable: true
+                    },
+                ],
+                drawCallback: function(settings) {
+                    let api = this.api();
+                    let start = api.page.info().start;
+
+                    api.column(0, {
+                        page: 'current'
+                    }).nodes().each(function(cell, i) {
+                        cell.innerHTML = start + i + 1;
+                    });
+                }
+            });
+        })
+    </script>
 @endpush
