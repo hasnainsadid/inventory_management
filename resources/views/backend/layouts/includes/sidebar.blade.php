@@ -35,7 +35,7 @@
 
     <ul class="menu-inner py-1 ps ps--active-y">
         <!-- Dashboards -->
-        <li class="menu-item active open">
+        <li class="menu-item @if (request()->routeIs('dashboard')) active @endif open">
             <a href="{{ route('dashboard') }}" class="menu-link">
                 <i class="menu-icon icon-base ti tabler-smart-home"></i>
                 <div>Dashboards</div>
@@ -47,13 +47,13 @@
             <span class="menu-header-text">Main pages</span>
         </li>
         <!-- Forms -->
-        <li class="menu-item">
+        <li class="menu-item @if (request()->routeIs('categories.*')) active @endif">
             <a href="{{ route('categories.index') }}" class="menu-link">
-                <i class="menu-icon icon-base ti tabler-message"></i>
+                <i class="menu-icon icon-base ti tabler-category"></i>
                 <div>Category</div>
             </a>
         </li>
-        <li class="menu-item">
+        <li class="menu-item {{ request()->routeIs('contacts.*') ? 'active' : '' }} "   >
             <a href="{{ route('contacts.index') }}" class="menu-link">
                 <i class="menu-icon icon-base ti tabler-message"></i>
                 <div>Contact Us</div>
