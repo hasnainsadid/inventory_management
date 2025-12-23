@@ -265,3 +265,5 @@
 <script src="{{ asset('backend') }}/js/config.js"></script>
 <style id="custom-css"></style>
 
+@stack('styles')
+

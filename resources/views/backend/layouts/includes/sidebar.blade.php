@@ -47,7 +47,13 @@
             <span class="menu-header-text">Main pages</span>
         </li>
         <!-- Forms -->
-         <li class="menu-item">
+        <li class="menu-item">
+            <a href="{{ route('categories.index') }}" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-message"></i>
+                <div>Category</div>
+            </a>
+        </li>
+        <li class="menu-item">
             <a href="{{ route('contacts.index') }}" class="menu-link">
                 <i class="menu-icon icon-base ti tabler-message"></i>
                 <div>Contact Us</div>
@@ -58,7 +64,7 @@
             <span class="menu-header-text">Recycle Bin</span>
         </li>
         <!-- Forms -->
-         <li class="menu-item">
+        <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon icon-base ti tabler-recycle"></i>
                 <div>Recycle Bin</div>

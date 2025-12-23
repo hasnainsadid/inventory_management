@@ -36,3 +36,5 @@
 
 {{-- tagsinput --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.6.0/bootstrap-tagsinput.min.js"></script>
+
+@stack('scripts')
