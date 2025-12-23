@@ -4,7 +4,10 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <!-- Basic Bootstrap Table -->
         <div class="card">
-            <h5 class="card-header">All Categories</h5>
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="card-header">All Categories</h5>
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#categoryModal">Add New</button>
+            </div>
             <div class="table-responsive text-nowrap">
                 <table class="table" id="category-table">
                     <thead>
@@ -18,6 +21,42 @@
                         </tr>
                     </thead>
                 </table>
+            </div>
+        </div>
+
+        <div class="modal fade" id="categoryModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                        <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                            placeholder="Enter Name" />
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="status">Status</label>
+                                        <select class="form-select" id="status" name="status">
+                                            <option disabled selected>Select Status</option>
+                                            <option value="active">Active</option>
+                                            <option value="inactive">Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
