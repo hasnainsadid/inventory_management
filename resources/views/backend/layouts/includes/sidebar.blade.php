@@ -71,6 +71,11 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
+                    <a href="{{ route('categories.recycleBin') }}" class="menu-link">
+                        <div>Category</div>
+                    </a>
+                </li>
+                <li class="menu-item">
                     <a href="{{ route('contacts.recycleBin') }}" class="menu-link">
                         <div>Contacts</div>
                     </a>

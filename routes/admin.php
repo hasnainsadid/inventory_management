@@ -15,7 +15,10 @@ Route::middleware([
     })->name('dashboard');
 
     // category
-    Route::resource('categories', CategoryController::class);
+    Route::resource('categories', CategoryController::class)->except(['show']);
+    Route::get('categories/recycle-bin', [CategoryController::class, 'recycleBin'])->name('categories.recycleBin');
+    Route::post('categories/restore/{id}', [CategoryController::class, 'restore'])->name('categories.restore');
+    Route::delete('categories/force-delete/{id}', [CategoryController::class, 'forceDelete'])->name('categories.forceDelete');
 
     
     // contact

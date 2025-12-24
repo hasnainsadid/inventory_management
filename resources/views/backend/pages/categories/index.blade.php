@@ -6,25 +6,14 @@
         <div class="card">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">All Categories</h5>
-                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#categoryModal">Add New</button>
+                <button class="btn btn-primary btn-sm mx-5" data-bs-toggle="modal" data-bs-target="#categoryAddModal">Add New</button>
             </div>
             <div class="table-responsive text-nowrap">
-                <table class="table" id="category-table">
-                    <thead>
-                        <tr>
-                            <th>Sl No.</th>
-                            <th>Name</th>
-                            <th>Slug</th>
-                            <th>Status</th>
-                            <th>Created At</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                </table>
+                 {!! $dataTable->table(['class' => 'table'], true) !!}
             </div>
         </div>
 
-        <div class="modal fade" id="categoryModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal fade" id="categoryAddModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
             <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -60,8 +49,9 @@
             </div>
         </div>
     </div>
+    {!! $dataTable->scripts() !!}
 @endsection
-@push('scripts')
+{{-- @push('scripts')
     <script>
         $(function() {
             $('#category-table').DataTable({
@@ -110,4 +100,4 @@
             });
         })
     </script>
-@endpush
+@endpush --}}
