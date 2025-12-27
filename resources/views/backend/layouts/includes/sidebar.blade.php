@@ -65,6 +65,17 @@
                 <div>Contact Us</div>
             </a>
         </li>
+
+        <li class="menu-header small">
+            <span class="menu-header-text">Role & Permission</span>
+        </li>
+
+        <li class="menu-item {{ request()->routeIs('roles.index') ? 'active' : '' }}">
+            <a href="{{ route('roles.index') }}" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-users"></i>
+                <div>Roles</div>
+            </a>
+        </li>
         <!-- pages -->
         <li class="menu-header small">
             <span class="menu-header-text">Recycle Bin</span>

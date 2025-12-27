@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SupplierController;
@@ -34,4 +35,14 @@ Route::middleware([
     Route::get('contacts/recycle-bin', [ContactController::class, 'recycleBin'])->name('contacts.recycleBin');
     Route::post('contacts/restore/{id}', [ContactController::class, 'restore'])->name('contacts.restore');
     Route::delete('contacts/force-delete/{id}', [ContactController::class, 'forceDelete'])->name('contacts.forceDelete');
+
+
+    // role
+    Route::resource('roles', RoleController::class)->except(['show']);
+    Route::get('roles/recycle-bin', [RoleController::class, 'recycleBin'])->name('roles.recycleBin');
+    Route::post('roles/restore/{id}', [RoleController::class, 'restore'])->name('roles.restore');
+    Route::delete('roles/force-delete/{id}', [RoleController::class, 'forceDelete'])->name('roles.forceDelete');
+
+    Route::get('add-permission/{id}', [RoleController::class, 'addPermission'])->name('roles.addPermission');
+    Route::post('add-permission/{id}', [RoleController::class, 'addPermissionPost'])->name('roles.addPermissionPost');
 });
