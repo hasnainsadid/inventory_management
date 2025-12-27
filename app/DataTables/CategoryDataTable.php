@@ -36,7 +36,7 @@ class CategoryDataTable extends DataTable
                     <div class="dropdown-menu">
                         <a href="javascript:void(0)"
                         class="dropdown-item waves-effect edit-btn"
-                        data-id="{{ $row->id }}">
+                        data-id="' . $row->id. '">
                             <i class="icon-base ti tabler-pencil"></i> Edit
                         </a>
 

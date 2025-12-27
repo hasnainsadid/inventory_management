@@ -6,8 +6,7 @@
         <div class="card">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">All Categories</h5>
-                <button class="btn btn-primary btn-sm mx-5" data-bs-toggle="modal" data-bs-target="#categoryAddModal">Add
-                    New</button>
+                <button class="btn btn-primary btn-sm mx-5" data-bs-toggle="modal" data-bs-target="#categoryAddModal">Add New</button>
             </div>
             <div class="table-responsive text-nowrap">
                 {!! $dataTable->table(['class' => 'table'], true) !!}
@@ -60,7 +59,7 @@
 
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5>Edit Category Data id: </h5>
+                            <h5>Edit Category</h5>
                             <button class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
@@ -95,41 +94,43 @@
     <script>
         $(document).ready(function() {
             $(document).on('click', '.edit-btn', function() {
-                var id = $(this).data('id');
-                var name = $(this).data('name');
-                var status = $(this).data('status');
-                $('#category_id').val(id);
-                $('#name').val(name);
-                $('#status').val(status);
-                $('#editCategoryModal').modal('show');
+
+                let id = $(this).data('id');
+
+                $.ajax({
+                    url: "{{ route('categories.edit', ':id') }}".replace(':id', id),
+                    type: 'GET',
+                    success: function(res) {
+
+                        $('#edit_id').val(res.id);
+                        $('#edit_name').val(res.name);
+                        $('#edit_status').val(res.status);
+
+                        $('#editCategoryModal').modal('show');
+                    },
+                    error: function() {
+                        alert('Unable to fetch category data');
+                    }
+                });
+
             });
 
             $('#categoryForm').submit(function(e) {
                 e.preventDefault();
-                var id = $('#category_id').val();
-                var name = $('#ename').val();
-                var status = $('#estatus').val();
+
+                let id = $('#edit_id').val();
+                
                 $.ajax({
-                    url: '/admin/categories/' + id,
-                    type: 'PUT',
+                    url: "{{ route('categories.update', ':id') }}".replace(':id', id),
                     data: {
-                        id: id,
-                        name: name,
-                        status: status,
+                        _token: "{{ csrf_token() }}",
+                        _method: 'PUT',
+                        name: $('#edit_name').val(),
+                        status: $('#edit_status').val(),
                     },
-                    success: function(response) {
+                    success: function() {
                         $('#editCategoryModal').modal('hide');
-                        $('#categoryForm')[0].reset();
-                        $('#category-table').DataTable().ajax.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        var errors = xhr.responseJSON.errors;
-                        var errorHtml = '';
-                        $.each(errors, function(key, value) {
-                            errorHtml += '<li>' + value + '</li>';
-                        });
-                        $('#error-message').html(errorHtml);
-                        $('#error-modal').modal('show');
+                        $('.dataTable').DataTable().ajax.reload(null, false);
                     }
                 });
             });

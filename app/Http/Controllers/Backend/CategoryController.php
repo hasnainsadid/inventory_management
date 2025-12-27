@@ -55,12 +55,26 @@ class CategoryController extends Controller
         return back();
     }
 
+    public function edit(string $id)
+    {
+        $category = Category::findOrFail($id);
+        return response()->json($category);
+    }
+
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->update([
+            'name' => $request->name,
+            'status' => $request->status,
+            'slug' => slugify($request->name)
+        ]);
+
+        notify()->success('Category has been updated successfully.');
+        return back();
     }
 
     /**
