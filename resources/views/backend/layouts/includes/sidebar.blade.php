@@ -53,6 +53,12 @@
                 <div>Category</div>
             </a>
         </li>
+        <li class="menu-item @if (request()->routeIs('suppliers.*')) active @endif">
+            <a href="{{ route('suppliers.index') }}" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-suppliers"></i>
+                <div>Suppliers</div>
+            </a>
+        </li>
         <li class="menu-item {{ request()->routeIs('contacts.*') ? 'active' : '' }} "   >
             <a href="{{ route('contacts.index') }}" class="menu-link">
                 <i class="menu-icon icon-base ti tabler-message"></i>
@@ -73,6 +79,11 @@
                 <li class="menu-item">
                     <a href="{{ route('categories.recycleBin') }}" class="menu-link">
                         <div>Category</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('suppliers.recycleBin') }}" class="menu-link">
+                        <div>Supplier</div>
                     </a>
                 </li>
                 <li class="menu-item">

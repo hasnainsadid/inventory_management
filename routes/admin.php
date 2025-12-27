@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Backend\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\ContactController;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\SupplierController;
 
 Route::middleware([
     'auth:sanctum',
@@ -19,6 +20,13 @@ Route::middleware([
     Route::get('categories/recycle-bin', [CategoryController::class, 'recycleBin'])->name('categories.recycleBin');
     Route::post('categories/restore/{id}', [CategoryController::class, 'restore'])->name('categories.restore');
     Route::delete('categories/force-delete/{id}', [CategoryController::class, 'forceDelete'])->name('categories.forceDelete');
+
+
+    // suppliers
+    Route::resource('suppliers', SupplierController::class)->except(['show']);
+    Route::get('suppliers/recycle-bin', [SupplierController::class, 'recycleBin'])->name('suppliers.recycleBin');
+    Route::post('suppliers/restore/{id}', [SupplierController::class, 'restore'])->name('suppliers.restore');
+    Route::delete('suppliers/force-delete/{id}', [SupplierController::class, 'forceDelete'])->name('suppliers.forceDelete');
 
     
     // contact

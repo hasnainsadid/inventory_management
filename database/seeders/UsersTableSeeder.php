@@ -45,15 +45,15 @@ class UsersTableSeeder extends Seeder
                 'phone' => '01798537135',
                 'address' => '69 Shahid Sangbadik Selina Parveen Road, Moghbazar',
                 'email_verified_at' => NULL,
-                'password' => '$2y$12$PzLgIhT2Td3Xi5KoZIfEu.cknfqWrcEpfTBtjf5lfwNL/JaKy0h7a',
+                'password' => '$2y$12$fNcRDbAhGTSFM.ttUkRG5.5VSG2cd2p2SmDt.hSt1NZALdKXAjk/u',
                 'two_factor_secret' => NULL,
                 'two_factor_recovery_codes' => NULL,
                 'two_factor_confirmed_at' => NULL,
-                'remember_token' => 'EGsERmen62aQ2JPDGjrivRwAImu4PH4vLiRwFzw9IRKSm3W77hcrXp9WE17v',
+                'remember_token' => 'NORLhhhdYCR9fW0Xu9nD53XrFkCCCYaXKvho5CAXlpaQJBsQEmjpWjiVjCiV',
                 'current_team_id' => NULL,
                 'profile_photo_path' => 'profile-photos/X1z5BuEaQQHQhhunM6iwazlLS0QA4Bo11e6JjV3T.jpg',
                 'created_at' => '2025-11-11 10:38:04',
-                'updated_at' => '2025-11-12 04:55:15',
+                'updated_at' => '2025-12-24 03:42:48',
             ),
         ));
         

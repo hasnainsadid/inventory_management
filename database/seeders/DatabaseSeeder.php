@@ -26,5 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CacheLocksTableSeeder::class);
         $this->call(JobBatchesTableSeeder::class);
         $this->call(JobsTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
+        $this->call(ContactsTableSeeder::class);
     }
 }
