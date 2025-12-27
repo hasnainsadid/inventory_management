@@ -5,7 +5,7 @@
     <div class="dropdown-menu">
 
         {{-- add permission --}}
-        <a href="javascript:void(0)"
+        <a href="{{ route('roles.addPermission', $row->id) }}"
            class="dropdown-item waves-effect permission-btn"
            data-id="{{ $row->id }}">
             <i class="icon-base ti tabler-plus"></i> Add Permission

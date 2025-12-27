@@ -1,10 +1,11 @@
 <?php
 namespace App\Http\Controllers\Backend;
 
-use App\DataTables\RoleDataTable;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\DataTables\RoleDataTable;
 use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Route;
 
 class RoleController extends Controller
 {
@@ -65,6 +66,20 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        // 
+        //
+    }
+
+    public function addPermission($id)
+    {
+        $role   = Role::findOrFail($id);
+        $routes = collect(Route::getRoutes())
+            ->map(function ($route) {
+                return $route->getName();
+            })
+            ->filter() // null বাদ
+            ->unique()
+            ->values();
+            // dd($routes);
+        return view('backend.pages.roles.add-permission', compact('role', 'routes'));
     }
 }
