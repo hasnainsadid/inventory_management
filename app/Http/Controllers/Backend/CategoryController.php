@@ -66,7 +66,7 @@ class CategoryController extends Controller
 
     public function recycleBin() {
         $categories = Category::onlyTrashed()->get();
-        return view('backend.pages.Recycle.category', compact('categories'));
+        return view('backend.pages.recycle.category', compact('categories'));
     }
 
     public function restore($id) {

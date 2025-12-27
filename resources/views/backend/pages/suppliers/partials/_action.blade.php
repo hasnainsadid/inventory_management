@@ -19,7 +19,7 @@
         </a>
 
         <!-- Hidden Delete Form -->
-        <form id="delete-{{ $row->id }}" action="{{ route('categories.destroy', $row->id) }}" method="POST" class="d-none">
+        <form id="delete-{{ $row->id }}" action="{{ route('suppliers.destroy', $row->id) }}" method="POST" class="d-none">
             @csrf
             @method('DELETE')
         </form>

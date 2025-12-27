@@ -26,7 +26,7 @@ class ContactController extends Controller
     public function recycleBin()
     {
         $contacts = Contact::onlyTrashed()->get();
-        return view('backend.pages.Recycle.contact', compact('contacts'));
+        return view('backend.pages.recycle.contact', compact('contacts'));
     }
 
     public function restore($id)

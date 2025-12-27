@@ -33,7 +33,7 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <form id="restore-form-{{ $supplier->id }}"
-                                                action="{{ route('categories.restore', $supplier->id) }}" method="POST"
+                                                action="{{ route('suppliers.restore', $supplier->id) }}" method="POST"
                                                 class="d-none">
                                                 @csrf
                                             </form>
@@ -46,7 +46,7 @@
                                                 href="javascript:void(0);"><i class="icon-base ti tabler-trash me-1"></i>
                                                 Delete</a>
                                             <form id="delete-form-{{ $supplier->id }}"
-                                                action="{{ route('categories.forceDelete', $supplier->id) }}" method="post"
+                                                action="{{ route('suppliers.forceDelete', $supplier->id) }}" method="post"
                                                 class="d-none">
                                                 @csrf
                                                 @method('delete')
@@ -57,7 +57,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center">No recycle categories found.</td>
+                                <td colspan="5" class="text-center">No recycle suppliers found.</td>
                             </tr>
                         @endforelse
                     </tbody>

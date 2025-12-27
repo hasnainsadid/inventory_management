@@ -47,19 +47,19 @@
             <span class="menu-header-text">Main pages</span>
         </li>
         <!-- Forms -->
-        <li class="menu-item @if (request()->routeIs('categories.*')) active @endif">
+        <li class="menu-item @if (request()->routeIs('categories.index')) active @endif">
             <a href="{{ route('categories.index') }}" class="menu-link">
                 <i class="menu-icon icon-base ti tabler-category"></i>
                 <div>Category</div>
             </a>
         </li>
-        <li class="menu-item @if (request()->routeIs('suppliers.*')) active @endif">
+        <li class="menu-item @if (request()->routeIs('suppliers.index')) active @endif">
             <a href="{{ route('suppliers.index') }}" class="menu-link">
-                <i class="menu-icon icon-base ti tabler-suppliers"></i>
+                <i class="menu-icon icon-base ti tabler-users-group"></i>
                 <div>Suppliers</div>
             </a>
         </li>
-        <li class="menu-item {{ request()->routeIs('contacts.*') ? 'active' : '' }} "   >
+        <li class="menu-item {{ request()->routeIs('contacts.index') ? 'active' : '' }} "   >
             <a href="{{ route('contacts.index') }}" class="menu-link">
                 <i class="menu-icon icon-base ti tabler-message"></i>
                 <div>Contact Us</div>
@@ -70,23 +70,23 @@
             <span class="menu-header-text">Recycle Bin</span>
         </li>
         <!-- Forms -->
-        <li class="menu-item">
+        <li class="menu-item {{ request()->routeIs('*.recycleBin') ? 'open active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon icon-base ti tabler-recycle"></i>
                 <div>Recycle Bin</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
+                <li class="menu-item {{ request()->routeIs('categories.recycleBin') ? 'active' : '' }}">
                     <a href="{{ route('categories.recycleBin') }}" class="menu-link">
                         <div>Category</div>
                     </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{ request()->routeIs('suppliers.recycleBin') ? 'active' : '' }}">
                     <a href="{{ route('suppliers.recycleBin') }}" class="menu-link">
                         <div>Supplier</div>
                     </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{ request()->routeIs('contacts.recycleBin') ? 'open active' : '' }}">
                     <a href="{{ route('contacts.recycleBin') }}" class="menu-link">
                         <div>Contacts</div>
                     </a>

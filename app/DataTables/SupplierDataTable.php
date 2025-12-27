@@ -24,7 +24,10 @@ class SupplierDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', fn ($row) => view('backend.pages.suppliers.partials._action', compact('row')))
             ->addColumn('created_at', fn ($row) => $row->created_at->diffForHumans())
-            ->rawColumns(['created_at','action'])
+            ->editColumn('address', fn ($row)
+                => wordwrap($row->address, 30, "<br>", true)
+            )
+            ->rawColumns(['address','created_at','action'])
             ->setRowId('id');
     }
 
@@ -60,11 +63,11 @@ class SupplierDataTable extends DataTable
             Column::make('email'),
             Column::make('phone'),
             Column::make('address'),
-            Column::make('created_at'),
+            // Column::make('created_at'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(50)
                   ->addClass('text-center'),
         ];
     }

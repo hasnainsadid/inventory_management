@@ -87,4 +87,16 @@ class SupplierController extends Controller
         return view('backend.pages.recycle.supplier', compact('suppliers'));
     }
 
+    public function restore($id) {
+        Supplier::onlyTrashed()->findOrFail($id)->restore();
+        notify()->success('Supplier restored successfully.');
+        return redirect()->back();
+    }
+
+    public function forceDelete($id) {
+        Supplier::onlyTrashed()->findOrFail($id)->forceDelete();
+        notify()->success('Supplier deleted permanently.');
+        return redirect()->back();
+    }
+
 }
