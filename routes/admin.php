@@ -10,7 +10,7 @@ use App\Http\Controllers\Backend\SupplierController;
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
-    'verified',
+    'verified', 'has_permission'
 ])->group(function () {
     Route::get('/dashboard', function () {
         return view('backend.pages.dashboard.index');
