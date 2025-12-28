@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\RoleController;
-use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\ContactController;
+use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SupplierController;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware([
     'auth:sanctum',
@@ -22,20 +22,17 @@ Route::middleware([
     Route::post('categories/restore/{id}', [CategoryController::class, 'restore'])->name('categories.restore');
     Route::delete('categories/force-delete/{id}', [CategoryController::class, 'forceDelete'])->name('categories.forceDelete');
 
-
     // suppliers
     Route::resource('suppliers', SupplierController::class)->except(['show']);
     Route::get('suppliers/recycle-bin', [SupplierController::class, 'recycleBin'])->name('suppliers.recycleBin');
     Route::post('suppliers/restore/{id}', [SupplierController::class, 'restore'])->name('suppliers.restore');
     Route::delete('suppliers/force-delete/{id}', [SupplierController::class, 'forceDelete'])->name('suppliers.forceDelete');
 
-    
     // contact
     Route::resource('contacts', ContactController::class)->only(['index', 'destroy']);
     Route::get('contacts/recycle-bin', [ContactController::class, 'recycleBin'])->name('contacts.recycleBin');
     Route::post('contacts/restore/{id}', [ContactController::class, 'restore'])->name('contacts.restore');
     Route::delete('contacts/force-delete/{id}', [ContactController::class, 'forceDelete'])->name('contacts.forceDelete');
-
 
     // role
     Route::resource('roles', RoleController::class)->except(['show']);
@@ -44,5 +41,5 @@ Route::middleware([
     Route::delete('roles/force-delete/{id}', [RoleController::class, 'forceDelete'])->name('roles.forceDelete');
 
     Route::get('add-permission/{id}', [RoleController::class, 'addPermission'])->name('roles.addPermission');
-    Route::post('add-permission/{id}', [RoleController::class, 'addPermissionPost'])->name('roles.addPermissionPost');
+    Route::post('add-permission/{id}', [RoleController::class, 'permissionStore'])->name('roles.permissions.store');
 });

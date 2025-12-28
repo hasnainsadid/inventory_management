@@ -44,7 +44,7 @@ class RoleDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->orderBy(1)
+            ->orderBy(1, 'ASC')
             ->selectStyleSingle();
     }
 

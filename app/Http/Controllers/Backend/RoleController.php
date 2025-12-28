@@ -1,11 +1,12 @@
 <?php
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
 use App\DataTables\RoleDataTable;
-use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
@@ -73,13 +74,69 @@ class RoleController extends Controller
     {
         $role   = Role::findOrFail($id);
         $routes = collect(Route::getRoutes())
-            ->map(function ($route) {
-                return $route->getName();
+            ->map(fn($route) => $route->getName())
+            ->filter(function ($name) {
+                return $name
+                && ! str_contains($name, 'login')
+                && ! str_contains($name, 'logout')
+                && ! str_contains($name, 'password')
+                && ! str_contains($name, 'profile')
+                && ! str_contains($name, 'livewire')
+                && ! str_contains($name, 'clear')
+                && ! str_contains($name, 'composer')
+                && ! str_contains($name, 'migration')
+                && ! str_contains($name, 'iseed')
+                && ! str_contains($name, 'register')
+                && ! str_contains($name, 'boost.')
+                && ! str_contains($name, 'two-factor.');
             })
-            ->filter() // null বাদ
             ->unique()
+            ->sort()
             ->values();
-            // dd($routes);
-        return view('backend.pages.roles.add-permission', compact('role', 'routes'));
+
+        $permissions = [];
+
+        foreach ($routes as $route) {
+            // categories.edit → [categories, edit]
+            [$module, $action] = array_pad(explode('.', $route, 2), 2, null);
+
+            if (! $module || ! $action) {
+                continue;
+            }
+
+            if (in_array($action, ['index', 'show'])) {
+                $permissions[$module]['view'] = "$module.view";
+            }
+
+            if (in_array($action, ['create', 'store'])) {
+                $permissions[$module]['create'] = "$module.create";
+            }
+
+            if (in_array($action, ['edit', 'update'])) {
+                $permissions[$module]['edit'] = "$module.edit";
+            }
+
+            if ($action === 'destroy') {
+                $permissions[$module]['delete'] = "$module.delete";
+            }
+        }
+
+        foreach ($permissions as $module => $perms) {
+            foreach ($perms as $permission) {
+                Permission::firstOrCreate([
+                    'name' => $permission,
+                ]);
+            }
+        }
+
+        return view('backend.pages.roles.add-permission', compact('role', 'permissions'));
+    }
+
+    public function permissionStore(Request $request, $id)
+    {
+        $role = Role::findOrFail($id);
+        $role->syncPermissions($request->permissions ?: []);
+        notify()->success('Permission added successfully');
+        return redirect()->route('roles.index');
     }
 }
