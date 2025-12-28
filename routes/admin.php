@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Backend\CategoryController;
-use App\Http\Controllers\Backend\ContactController;
-use App\Http\Controllers\Backend\RoleController;
-use App\Http\Controllers\Backend\SupplierController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\ContactController;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\SupplierController;
 
 Route::middleware([
     'auth:sanctum',
@@ -42,4 +43,10 @@ Route::middleware([
 
     Route::get('add-permission/{id}', [RoleController::class, 'addPermission'])->name('roles.addPermission');
     Route::post('add-permission/{id}', [RoleController::class, 'permissionStore'])->name('roles.permissions.store');
+
+    // users
+    Route::resource('users', UserController::class)->except(['show']);
+    Route::get('users/recycle-bin', [UserController::class, 'recycleBin'])->name('users.recycleBin');
+    Route::post('users/restore/{id}', [UserController::class, 'restore'])->name('users.restore');
+    Route::delete('users/force-delete/{id}', [UserController::class, 'forceDelete'])->name('users.forceDelete');
 });

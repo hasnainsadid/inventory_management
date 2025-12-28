@@ -76,6 +76,12 @@
                 <div>Roles</div>
             </a>
         </li>
+        <li class="menu-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
+            <a href="{{ route('users.index') }}" class="menu-link">
+                <i class="menu-icon icon-base ti tabler-user"></i>
+                <div>Users</div>
+            </a>
+        </li>
         <!-- pages -->
         <li class="menu-header small">
             <span class="menu-header-text">Recycle Bin</span>

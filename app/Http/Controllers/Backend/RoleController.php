@@ -29,6 +29,7 @@ class RoleController extends Controller
 
         Role::create([
             'name' => $request->name,
+            'guard_name' => 'web',
         ]);
 
         notify()->success('Role created successfully');
