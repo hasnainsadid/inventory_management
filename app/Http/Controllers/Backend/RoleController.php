@@ -28,7 +28,7 @@ class RoleController extends Controller
         ]);
 
         Role::create([
-            'name' => $request->name,
+            'name'       => $request->name,
             'guard_name' => 'web',
         ]);
 
@@ -106,7 +106,7 @@ class RoleController extends Controller
             }
 
             if (in_array($action, ['index', 'show'])) {
-                $permissions[$module]['view'] = "$module.view";
+                $permissions[$module]['view'] = "$module.index";
             }
 
             if (in_array($action, ['create', 'store'])) {
@@ -117,15 +117,17 @@ class RoleController extends Controller
                 $permissions[$module]['edit'] = "$module.edit";
             }
 
-            if ($action === 'destroy') {
-                $permissions[$module]['delete'] = "$module.delete";
+            if (in_array($action, ['destroy', 'recycleBin', 'restore', 'forceDelete'])) {
+                $permissions[$module]['destroy'] = "$module.destroy";
             }
+
         }
 
         foreach ($permissions as $module => $perms) {
             foreach ($perms as $permission) {
                 Permission::firstOrCreate([
-                    'name' => $permission,
+                    'name'       => $permission,
+                    'guard_name' => 'web',
                 ]);
             }
         }

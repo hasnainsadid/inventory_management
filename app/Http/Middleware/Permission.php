@@ -14,21 +14,37 @@ class Permission
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if ($request->route()->getName() === 'dashboard') {
+            return $next($request);
+        }
+
         $routeName = $request->route()->getName();
         if (! $routeName) {
             return $next($request);
         }
 
-        // Super Admin can bypass all
         if ($request->user()->hasRole('Super Admin')) {
             return $next($request);
         }
 
-        if (! $request->user()->can($routeName)) {
-            notify()->error('You do not have permission to access this page');
-            return redirect()->route('dashboard');
+        $user = $request->user();
+
+        // Exact permission
+        if ($user->can($routeName)) {
+            return $next($request);
         }
 
-        return $next($request);
+        // 🔥 Destroy permission controls recycle features
+        $destroyMappedRoutes = ['recycleBin', 'restore', 'forceDelete'];
+
+        [$module, $action] = array_pad(explode('.', $routeName, 2), 2, null);
+
+        if ($module && in_array($action, $destroyMappedRoutes) && $user->can($module . '.destroy')) {
+            return $next($request);
+        }
+
+        notify()->error('You do not have permission to access this page');
+        return redirect()->route('dashboard');
     }
+
 }

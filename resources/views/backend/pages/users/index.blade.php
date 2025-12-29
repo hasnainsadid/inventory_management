@@ -6,8 +6,10 @@
         <div class="card">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">All Users</h5>
-                <button class="btn btn-primary btn-sm mx-5" data-bs-toggle="modal" data-bs-target="#addUserModal">Add
-                    New</button>
+                @if (hasPermission(['users.create'])) 
+                    <button class="btn btn-primary btn-sm mx-5" data-bs-toggle="modal" data-bs-target="#addUserModal">Add
+                        New</button>
+                @endif
             </div>
             <div class="table-responsive text-nowrap">
                 {!! $dataTable->table(['class' => 'table'], true) !!}

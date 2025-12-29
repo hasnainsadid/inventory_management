@@ -1,13 +1,12 @@
 <?php
 namespace App\DataTables;
 
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Services\DataTable;
 
 class RoleDataTable extends DataTable
 {
@@ -19,8 +18,8 @@ class RoleDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->editColumn('created_at', fn ($row) => $row->created_at->diffForHumans())
-            ->addColumn('action', fn ($row) => view('backend.pages.roles.partials._action', compact('row'))->render())
+            ->editColumn('created_at', fn($row) => $row->created_at->diffForHumans())
+            ->addColumn('action', fn($row) => view('backend.pages.roles.partials._action', compact('row'))->render())
             ->setRowId('id')
             ->rawColumns(['action']);
 
@@ -53,16 +52,21 @@ class RoleDataTable extends DataTable
      */
     public function getColumns(): array
     {
-        return [
+        $columns = [
             Column::make('name'),
             Column::make('created_at'),
-            Column::computed('action')
+        ];
+        if (hasPermission(['roles.edit', 'roles.destroy'])) {
+
+            $columns[] = Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)
-                ->addClass('text-center'),
+                ->addClass('text-center');
 
-        ];
+        }
+
+        return $columns;
     }
 
     /**

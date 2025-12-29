@@ -58,18 +58,21 @@ class SupplierDataTable extends DataTable
      */
     public function getColumns(): array
     {
-        return [
+        $columns = [
             Column::make('name'),
             Column::make('email'),
             Column::make('phone'),
             Column::make('address'),
             // Column::make('created_at'),
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(50)
-                  ->addClass('text-center'),
         ];
+        if (hasPermission(['suppliers.edit', 'suppliers.destroy'])) {
+            $columns[] = Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(50)
+                ->addClass('text-center');
+        }
+        return $columns;
     }
 
     /**

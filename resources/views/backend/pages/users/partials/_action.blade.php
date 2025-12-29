@@ -4,25 +4,29 @@
     </button>
     <div class="dropdown-menu">
 
-        <!-- Edit Button -->
-        <a href="javascript:void(0)"
-           class="dropdown-item waves-effect edit-btn"
-           data-id="{{ $row->id }}">
-            <i class="icon-base ti tabler-pencil"></i> Edit
-        </a>
+        @if (hasPermission(['users.edit'])) 
+            <!-- Edit Button -->
+            <a href="javascript:void(0)"
+               class="dropdown-item waves-effect edit-btn"
+               data-id="{{ $row->id }}">
+                <i class="icon-base ti tabler-pencil"></i> Edit
+            </a>
+        @endif
 
-        <!-- Delete Button -->
-        <a class="dropdown-item waves-effect"
-           href="javascript:void(0);"
-           onclick="event.preventDefault(); document.getElementById('delete-{{ $row->id }}').submit();">
-            <i class="icon-base ti tabler-trash me-1"></i> Delete
-        </a>
-
-        <!-- Hidden Delete Form -->
-        <form id="delete-{{ $row->id }}" action="{{ route('users.destroy', $row->id) }}" method="POST" class="d-none">
-            @csrf
-            @method('DELETE')
-        </form>
+        @if (hasPermission(['users.destroy'])) 
+            <!-- Delete Button -->
+            <a class="dropdown-item waves-effect"
+               href="javascript:void(0);"
+               onclick="event.preventDefault(); document.getElementById('delete-{{ $row->id }}').submit();">
+                <i class="icon-base ti tabler-trash me-1"></i> Delete
+            </a>
+    
+            <!-- Hidden Delete Form -->
+            <form id="delete-{{ $row->id }}" action="{{ route('users.destroy', $row->id) }}" method="POST" class="d-none">
+                @csrf
+                @method('DELETE')
+            </form>
+        @endif
 
     </div>
 </div>

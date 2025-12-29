@@ -27,31 +27,7 @@ class CategoryDataTable extends DataTable
             ->editColumn('created_at', function ($row) {
                 return $row->created_at->diffForHumans();
             })
-            ->addColumn('action', function ($row) {
-                return '
-                <div class="dropdown">
-                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                        <i class="icon-base ti tabler-dots-vertical"></i>
-                    </button>
-                    <div class="dropdown-menu">
-                        <a href="javascript:void(0)"
-                        class="dropdown-item waves-effect edit-btn"
-                        data-id="' . $row->id. '">
-                            <i class="icon-base ti tabler-pencil"></i> Edit
-                        </a>
-
-                        <a class="dropdown-item waves-effect" href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById(\'delete-' . $row->id . '\').submit();">
-                            <i class="icon-base ti tabler-trash me-1"></i> Delete
-                        </a>
-                        <form id="delete-' . $row->id . '" action="' . route('categories.destroy', $row->id) . '" method="POST" class="d-none">
-                            ' . csrf_field() . '
-                            ' . method_field('DELETE') . '
-                        </form>
-                    </div>
-                </div>
-                ';
-            })
-
+            ->addColumn('action', fn ($row) => view('backend.pages.categories.partials._action', compact('row'))->render())
             ->rawColumns(['status', 'action'])
             ->setRowId('id');
     }
@@ -72,7 +48,6 @@ class CategoryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('category-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1)

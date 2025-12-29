@@ -189,3 +189,14 @@ function setting()
 {
     return DB::table('settings')->first();
 }
+
+function hasPermission(array $permissions = []): bool
+{
+    $user = auth()->user();
+    if ($user->hasRole('Super Admin')) {
+        return true;
+    }
+
+    return $user->canAny($permissions);
+}
+

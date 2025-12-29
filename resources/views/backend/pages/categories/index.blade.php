@@ -6,7 +6,9 @@
         <div class="card">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">All Categories</h5>
-                <button class="btn btn-primary btn-sm mx-5" data-bs-toggle="modal" data-bs-target="#categoryAddModal">Add New</button>
+                @if (hasPermission(['categories.create'])) 
+                    <button class="btn btn-primary btn-sm mx-5" data-bs-toggle="modal" data-bs-target="#categoryAddModal">Add New</button>
+                @endif
             </div>
             <div class="table-responsive text-nowrap">
                 {!! $dataTable->table(['class' => 'table'], true) !!}
@@ -122,6 +124,7 @@
                 
                 $.ajax({
                     url: "{{ route('categories.update', ':id') }}".replace(':id', id),
+                    type: 'POST',
                     data: {
                         _token: "{{ csrf_token() }}",
                         _method: 'PUT',

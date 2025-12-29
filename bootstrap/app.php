@@ -15,9 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'has_permission' => App\Http\Middleware\Permission::class
         ]);
-    })
-
-          
+    })          
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();

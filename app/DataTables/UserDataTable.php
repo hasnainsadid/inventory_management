@@ -63,18 +63,22 @@ class UserDataTable extends DataTable
      */
     public function getColumns(): array
     {
-        return [
+        $columns = [
             Column::make('role'),
             Column::make('name'),
             Column::make('email'),
             Column::make('phone'),
             Column::make('address'),
-            Column::computed('action')
+        ];
+        if (hasPermission(['users.edit', 'users.destroy'])) {
+            $columns[] = Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)
-                ->addClass('text-center'),
-        ];
+                ->addClass('text-center');
+        }
+
+        return $columns;
     }
 
     /**

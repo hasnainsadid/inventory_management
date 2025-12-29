@@ -6,7 +6,9 @@
         <div class="card">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">All Roles</h5>
-                <button class="btn btn-primary btn-sm mx-5" data-bs-toggle="modal" data-bs-target="#roleAddModal">Add New</button>
+                @if (hasPermission(['roles.create']))
+                    <button class="btn btn-primary btn-sm mx-5" data-bs-toggle="modal" data-bs-target="#roleAddModal">Add New</button>
+                @endif
             </div>
             <div class="table-responsive text-nowrap">
                 {!! $dataTable->table(['class' => 'table'], true) !!}

@@ -47,42 +47,57 @@
             <span class="menu-header-text">Main pages</span>
         </li>
         <!-- Forms -->
-        <li class="menu-item @if (request()->routeIs('categories.index')) active @endif">
-            <a href="{{ route('categories.index') }}" class="menu-link">
-                <i class="menu-icon icon-base ti tabler-category"></i>
-                <div>Category</div>
-            </a>
-        </li>
-        <li class="menu-item @if (request()->routeIs('suppliers.index')) active @endif">
-            <a href="{{ route('suppliers.index') }}" class="menu-link">
-                <i class="menu-icon icon-base ti tabler-users-group"></i>
-                <div>Suppliers</div>
-            </a>
-        </li>
-        <li class="menu-item {{ request()->routeIs('contacts.index') ? 'active' : '' }} "   >
-            <a href="{{ route('contacts.index') }}" class="menu-link">
-                <i class="menu-icon icon-base ti tabler-message"></i>
-                <div>Contact Us</div>
-            </a>
-        </li>
+        @if(hasPermission(['categories.index', 'categories.create', 'categories.edit', 'categories.delete']))
+            <li class="menu-item @if (request()->routeIs('categories.index')) active @endif">
+                <a href="{{ route('categories.index') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-category"></i>
+                    <div>Category</div>
+                </a>
+            </li>
+        @endif
+
+        @if(hasPermission(['suppliers.index', 'suppliers.create', 'suppliers.edit', 'suppliers.delete']))
+            <li class="menu-item @if (request()->routeIs('suppliers.index')) active @endif">
+                <a href="{{ route('suppliers.index') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-users-group"></i>
+                    <div>Suppliers</div>
+                </a>
+            </li>
+        @endif
+
+        @if(hasPermission(['contacts.index', 'contacts.delete']))
+            <li class="menu-item {{ request()->routeIs('contacts.index') ? 'active' : '' }} ">
+                <a href="{{ route('contacts.index') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-message"></i>
+                    <div>Contact Us</div>
+                </a>
+            </li>
+        @endif
 
         <li class="menu-header small">
             <span class="menu-header-text">Role & Permission</span>
         </li>
 
-        <li class="menu-item {{ request()->routeIs('roles.index') ? 'active' : '' }}">
-            <a href="{{ route('roles.index') }}" class="menu-link">
-                <i class="menu-icon icon-base ti tabler-users"></i>
-                <div>Roles</div>
-            </a>
-        </li>
-        <li class="menu-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
-            <a href="{{ route('users.index') }}" class="menu-link">
-                <i class="menu-icon icon-base ti tabler-user"></i>
-                <div>Users</div>
-            </a>
-        </li>
+        @if(hasPermission(['roles.index', 'roles.create', 'roles.edit', 'roles.delete']))
+            <li class="menu-item {{ request()->routeIs('roles.index') ? 'active' : '' }}">
+                <a href="{{ route('roles.index') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-users"></i>
+                    <div>Roles</div>
+                </a>
+            </li>
+        @endif
+
+        @if(hasPermission(['users.index', 'users.create', 'users.edit', 'users.delete']))
+            <li class="menu-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
+                <a href="{{ route('users.index') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-user"></i>
+                    <div>Users</div>
+                </a>
+            </li>
+        @endif
+
         <!-- pages -->
+
         <li class="menu-header small">
             <span class="menu-header-text">Recycle Bin</span>
         </li>
@@ -93,21 +108,27 @@
                 <div>Recycle Bin</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ request()->routeIs('categories.recycleBin') ? 'active' : '' }}">
-                    <a href="{{ route('categories.recycleBin') }}" class="menu-link">
-                        <div>Category</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ request()->routeIs('suppliers.recycleBin') ? 'active' : '' }}">
-                    <a href="{{ route('suppliers.recycleBin') }}" class="menu-link">
-                        <div>Supplier</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ request()->routeIs('contacts.recycleBin') ? 'open active' : '' }}">
-                    <a href="{{ route('contacts.recycleBin') }}" class="menu-link">
-                        <div>Contacts</div>
-                    </a>
-                </li>
+                @if (hasPermission(['categories.destroy'])) 
+                    <li class="menu-item {{ request()->routeIs('categories.recycleBin') ? 'active' : '' }}">
+                        <a href="{{ route('categories.recycleBin') }}" class="menu-link">
+                            <div>Category</div>
+                        </a>
+                    </li>
+                @endif
+                @if (hasPermission(['suppliers.destroy'])) 
+                    <li class="menu-item {{ request()->routeIs('suppliers.recycleBin') ? 'active' : '' }}">
+                        <a href="{{ route('suppliers.recycleBin') }}" class="menu-link">
+                            <div>Supplier</div>
+                        </a>
+                    </li>
+                @endif
+                @if (hasPermission(['contacts.destroy'])) 
+                    <li class="menu-item {{ request()->routeIs('contacts.recycleBin') ? 'open active' : '' }}">
+                        <a href="{{ route('contacts.recycleBin') }}" class="menu-link">
+                            <div>Contacts</div>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </li>
     </ul>

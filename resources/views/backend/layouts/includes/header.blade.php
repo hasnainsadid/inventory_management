@@ -69,7 +69,7 @@
                     <div class="avatar avatar-online">
                         <img src="{{ auth()->user()->profile_photo_path
                                                 ? Storage::url(auth()->user()->profile_photo_path)
-                                                : Storage::url('default.jpg') }}" alt="Avatar" class="rounded-circle">
+                                                : Storage::url('default.png') }}" alt="Avatar" class="rounded-circle">
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -80,12 +80,12 @@
                                     <div class="avatar avatar-online">
                                         <img src="{{ auth()->user()->profile_photo_path
                                                 ? Storage::url(auth()->user()->profile_photo_path)
-                                                : Storage::url('default.jpg') }}" alt="Avatar" class="rounded-circle">
+                                                : Storage::url('default.png') }}" alt="Avatar" class="rounded-circle">
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <h6 class="mb-0">John Doe</h6>
-                                    <small class="text-body-secondary">Admin</small>
+                                    <h6 class="mb-0">{{ auth()->user()->name }}</h6>
+                                    <small class="text-body-secondary">{{ auth()->user()->roles->first()->name }}</small>
                                 </div>
                             </div>
                         </a>
