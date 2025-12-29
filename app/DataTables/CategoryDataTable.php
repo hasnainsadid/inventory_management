@@ -67,19 +67,20 @@ class CategoryDataTable extends DataTable
      */
     public function getColumns(): array
     {
-        return [
-            // Column::make('id'),
+        $columns = [
             Column::make('name'),
             Column::make('slug'),
             Column::make('status'),
             Column::make('created_at'),
-            // Column::make('updated_at'),
-            Column::computed('action')
+        ];
+        if (hasPermission(['categories.edit', 'categories.destroy'])) {
+            $columns[] = Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)
-                ->addClass('text-center'),
-        ];
+                ->addClass('text-center');
+        }
+        return $columns;
     }
 
     /**
