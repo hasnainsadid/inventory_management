@@ -52,7 +52,23 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->name = $request->name;
+        $product->slug = slugify($request->name);
+        $product->sku = $request->sku;
+        $product->unit = $request->unit;
+        $product->purchase_price = $request->purchase_price;
+        $product->sale_price = $request->sale_price;
+        $product->alert_quantity = $request->alert_quantity;
+        $product->category_id = $request->category_id;
+
+        if ($request->hasFile('image')) {
+            $product->image = imageUpdateManager($request->file('image'), $product->slug, 'product', $product->image);
+        }
+        $product->save();
+
+        notify()->success('Product Updated Successfully');
+        return redirect()->route('products.index');
     }
 
     /**

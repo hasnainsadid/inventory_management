@@ -191,7 +191,8 @@
                                 <div class="col-3">
                                     <div class="mb-3">
                                         <label class="form-label" for="current_image">Current Image</label>
-                                        <img src="" id="current_image" alt="product_image" height="50" width="50">
+                                        <img src="" id="current_image" alt="product_image" height="50"
+                                            width="50">
                                     </div>
                                 </div>
                             </div>
@@ -246,24 +247,23 @@
                 e.preventDefault();
 
                 let id = $('#edit_id').val();
+                let formData = new FormData(this);
+
+                formData.append('_method', 'PUT');
 
                 $.ajax({
                     url: "{{ route('products.update', ':id') }}".replace(':id', id),
                     type: 'POST',
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        _method: 'PUT',
-                        name: $('#edit_name').val(),
-                        sku: $('#edit_sku').val(),
-                        unit: $('#edit_unit').val(),
-                        alert_quantity: $('#edit_alert_quantity').val(),
-                        purchase_price: $('#edit_purchase_price').val(),
-                        sale_price: $('#edit_sale_price').val(),
-                        category_id: $('#edit_category_id').val(),
-                    },
+                    data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function() {
                         $('#editProductModal').modal('hide');
                         $('.dataTable').DataTable().ajax.reload(null, false);
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                        alert('Update failed');
                     }
                 });
             });
