@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\ContactController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SupplierController;
 
@@ -28,6 +29,9 @@ Route::middleware([
     Route::get('suppliers/recycle-bin', [SupplierController::class, 'recycleBin'])->name('suppliers.recycleBin');
     Route::post('suppliers/restore/{id}', [SupplierController::class, 'restore'])->name('suppliers.restore');
     Route::delete('suppliers/force-delete/{id}', [SupplierController::class, 'forceDelete'])->name('suppliers.forceDelete');
+
+    // products
+    Route::resource('products', ProductController::class)->except(['show']);
 
     // contact
     Route::resource('contacts', ContactController::class)->only(['index', 'destroy']);

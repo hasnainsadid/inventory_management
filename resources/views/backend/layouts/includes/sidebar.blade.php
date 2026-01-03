@@ -56,6 +56,15 @@
             </li>
         @endif
 
+        @if(hasPermission(['products.index', 'products.create', 'products.edit', 'products.delete']))
+            <li class="menu-item @if (request()->routeIs('products.index')) active @endif">
+                <a href="{{ route('products.index') }}" class="menu-link">
+                    <i class="menu-icon icon-base ti tabler-shopping-cart"></i>
+                    <div>Products</div>
+                </a>
+            </li>
+        @endif
+
         @if(hasPermission(['suppliers.index', 'suppliers.create', 'suppliers.edit', 'suppliers.delete']))
             <li class="menu-item @if (request()->routeIs('suppliers.index')) active @endif">
                 <a href="{{ route('suppliers.index') }}" class="menu-link">

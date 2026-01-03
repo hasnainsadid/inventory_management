@@ -1,19 +1,21 @@
 <?php
 
+use Illuminate\Support\Facades\Storage;
+
 function imageUploadManager($image, $slug, $path)
 {
-    $path = 'uploads/' . trim($path, '/') . '/';
-    $extension = $image->getClientOriginalExtension();
-    $image_name = $path . $slug . '_' . time() . '_' . uniqid() . '.' . $extension;
+    $path       = trim($path, '/'); // e.g., 'images'
+    $extension  = $image->getClientOriginalExtension();
+    $image_name = $slug . '_' . time() . '_' . uniqid() . '.' . $extension;
 
-    if (!file_exists($path)) {
-        mkdir($path, 0777, true);
-    }
+    // Store the file in storage/app/public/{path}/
+    Storage::disk('public')->putFileAs($path, $image, $image_name);
 
-    $image->move($path, $image_name);
 
-    return $image_name;
+    // Return the path relative to 'storage/app/public'
+    return $path . '/' . $image_name;
 }
+
 
 function imageUpdateManager($image, $slug, $path, $old_image)
 {
