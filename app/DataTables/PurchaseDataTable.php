@@ -1,7 +1,7 @@
 <?php
 namespace App\DataTables;
 
-use App\Models\Product;
+use App\Models\Purchase;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -9,28 +9,28 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class ProductDataTable extends DataTable
+class PurchaseDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
      *
-     * @param QueryBuilder<Product> $query Results from query() method.
+     * @param QueryBuilder<Purchase> $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->editColumn('image', fn ($row) => '<img src="' . imageShow($row->image) . '" width="50" height="50" />')
-            ->editColumn('category', fn ($row) => $row->category->name)
-            ->addColumn('action', fn ($row) => view('backend.pages.products.partials._action', compact('row'))->render())
-            ->rawColumns(['image', 'action']);
+            ->editColumn('purchase_date', fn($row) => \Carbon\Carbon::parse($row->purchase_date)->format('d M, Y'))
+            ->addColumn('created_at', fn($row) => $row->created_at->diffForHumans())
+            ->addColumn('action', fn($row) => view('backend.pages.purchases.partials._action', compact('row'))->render())
+            ->rawColumns(['action']);
     }
 
     /**
      * Get the query source of dataTable.
      *
-     * @return QueryBuilder<Product>
+     * @return QueryBuilder<Purchase>
      */
-    public function query(Product $model): QueryBuilder
+    public function query(Purchase $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -41,7 +41,6 @@ class ProductDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('product-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1)
@@ -59,25 +58,22 @@ class ProductDataTable extends DataTable
      */
     public function getColumns(): array
     {
-        $column = [
-            Column::make('image'),
-            Column::make('name'),
-            Column::make('category'),
-            Column::make('sku'),
-            Column::make('unit'),
-            Column::make('purchase_price'),
-            Column::make('sale_price'),
-            Column::make('alert_quantity'),
+
+        $columns = [
+            Column::make('invoice_no'),
+            Column::make('purchase_date'),
+            Column::make('total_amount'),
+            Column::make('created_by'),
+            Column::make('created_at'),
         ];
-        if (hasPermission(['products.edit', 'products.destroy'])) {
-            $column[] = Column::computed('action')
+        if (hasPermission(['purchases.edit', 'purchases.destroy'])) {
+            $columns[] = Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center');
         }
-
-        return $column;
+        return $columns;
     }
 
     /**
@@ -85,6 +81,6 @@ class ProductDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Product_' . date('YmdHis');
+        return 'Purchase_' . date('YmdHis');
     }
 }

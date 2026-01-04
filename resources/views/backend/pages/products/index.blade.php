@@ -6,7 +6,7 @@
         <div class="card">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-header">All Products</h5>
-                @if (hasPermission(['Products.create']))
+                @if (hasPermission(['products.create']))
                     <button class="btn btn-primary btn-sm mx-5" data-bs-toggle="modal" data-bs-target="#productAddModal">Add
                         New</button>
                 @endif

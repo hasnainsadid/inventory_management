@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\PurchaseController;
 use App\Http\Controllers\Backend\SupplierController;
 
 Route::middleware([
@@ -32,6 +33,12 @@ Route::middleware([
 
     // products
     Route::resource('products', ProductController::class)->except(['show']);
+
+    // purchase
+    Route::resource('purchases', PurchaseController::class)->except(['show']);
+    Route::get('purchases/recycle-bin', [PurchaseController::class, 'recycleBin'])->name('purchases.recycleBin');
+    Route::post('purchases/restore/{id}', [PurchaseController::class, 'restore'])->name('purchases.restore');
+    Route::delete('purchases/force-delete/{id}', [PurchaseController::class, 'forceDelete'])->name('purchases.forceDelete');
 
     // contact
     Route::resource('contacts', ContactController::class)->only(['index', 'destroy']);

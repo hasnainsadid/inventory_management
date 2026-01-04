@@ -34,5 +34,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ModelHasRolesTableSeeder::class);
         $this->call(RoleHasPermissionsTableSeeder::class);
         $this->call(SuppliersTableSeeder::class);
+        $this->call(ProductsTableSeeder::class);
+        $this->call(PurchasesTableSeeder::class);
+        $this->call(PurchaseItemsTableSeeder::class);
     }
 }

@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\PurchaseItem;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Purchase extends Model
 {
     protected $guarded = [];
 
-    public function category()
+    public function items()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasMany(PurchaseItem::class);
     }
 
     public function supplier()
