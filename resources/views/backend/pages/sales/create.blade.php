@@ -20,13 +20,8 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label class="form-label">Supplier</label>
-                            <select name="supplier_id" class="form-select select2" id="select2Basic" required>
-                                <option value="">Select Supplier</option>
-                                @foreach ($suppliers as $supplier)
-                                    <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
-                                @endforeach
-                            </select>
+                            <label class="form-label">Customer Name <span class="text-danger">*</span></label>
+                            <input type="text" name="customer_name" class="form-control" value="{{ old('customer_name') }}" required placeholder="Enter customer name">
                         </div>
 
                         <div class="col-md-4 mb-3">
@@ -61,7 +56,7 @@
                                             <option value="">Select Product</option>
                                             @foreach ($products as $product)
                                                 <option value="{{ $product->id }}"
-                                                    data-price="{{ $product->purchase_price }}">{{ $product->name }}
+                                                    data-price="{{ $product->sale_price }}">{{ $product->name }}
                                                 </option>
                                             @endforeach
                                         </select>

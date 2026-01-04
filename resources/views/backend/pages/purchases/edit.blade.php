@@ -47,7 +47,7 @@
                 {{-- Purchase Items Table --}}
                 <div class="table-responsive mt-3">
                     <table class="table table-bordered">
-                        <thead class="table-light">
+                        <thead>
                             <tr>
                                 <th width="30%">Product</th>
                                 <th width="15%">Qty</th>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\PurchaseController;
+use App\Http\Controllers\Backend\SaleController;
 use App\Http\Controllers\Backend\SupplierController;
 
 Route::middleware([
@@ -41,10 +42,10 @@ Route::middleware([
     Route::delete('purchases/force-delete/{id}', [PurchaseController::class, 'forceDelete'])->name('purchases.forceDelete');
 
     // sales
-    Route::resource('sales', PurchaseController::class)->except(['show']);
-    Route::get('sales/recycle-bin', [PurchaseController::class, 'recycleBin'])->name('sales.recycleBin');
-    Route::post('sales/restore/{id}', [PurchaseController::class, 'restore'])->name('sales.restore');
-    Route::delete('sales/force-delete/{id}', [PurchaseController::class, 'forceDelete'])->name('sales.forceDelete');
+    Route::resource('sales', SaleController::class)->except(['show']);
+    Route::get('sales/recycle-bin', [SaleController::class, 'recycleBin'])->name('sales.recycleBin');
+    Route::post('sales/restore/{id}', [SaleController::class, 'restore'])->name('sales.restore');
+    Route::delete('sales/force-delete/{id}', [SaleController::class, 'forceDelete'])->name('sales.forceDelete');
 
     // contact
     Route::resource('contacts', ContactController::class)->only(['index', 'destroy']);

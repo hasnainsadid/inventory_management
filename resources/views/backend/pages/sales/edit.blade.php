@@ -1,53 +1,46 @@
 @extends('backend.layouts.app')
 
-@section('title', 'Edit Purchase')
+@section('title', 'Edit Sale')
 
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card">
         <div class="d-flex justify-content-between align-items-center">
-            <h5 class="card-header">Edit Purchase</h5>
-            @if(hasPermission(['purchase.index']))
-            <a href="{{ route('purchases.index') }}" class="btn btn-primary btn-sm mx-5">
-                All Purchases
+            <h5 class="card-header">Edit Sale</h5>
+            @if(hasPermission(['sales.index']))
+            <a href="{{ route('sales.index') }}" class="btn btn-primary btn-sm mx-5">
+                All Sales
             </a>
             @endif
         </div>
 
         <div class="card-body">
-            <form action="{{ route('purchases.update', $purchase->id) }}" method="POST">
+            <form action="{{ route('sales.update', $sale->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
-                {{-- Supplier / Invoice / Date --}}
+                {{-- Customer Name / Invoice / Date --}}
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label class="form-label">Supplier</label>
-                        <select name="supplier_id" class="form-select select2" required>
-                            <option value="">Select Supplier</option>
-                            @foreach($suppliers as $supplier)
-                                <option value="{{ $supplier->id }}" {{ $purchase->supplier_id == $supplier->id ? 'selected' : '' }}>
-                                    {{ $supplier->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <label class="form-label" for="customerName">Customer Name <span class="text-danger">*</span></label>
+                        <input type="text" name="customer_name" id="customerName" class="form-control" value="{{ $sale->customer_name }}" required placeholder="Enter customer name">
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Invoice No</label>
-                        <input type="text" name="invoice_no" class="form-control" value="{{ $purchase->invoice_no }}" readonly>
+                        <input type="text" name="invoice_no" class="form-control" value="{{ $sale->invoice_no }}" readonly>
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label class="form-label">Purchase Date</label>
-                        <input type="date" name="purchase_date" class="form-control" value="{{ Carbon\Carbon::parse($purchase->purchase_date)->format('Y-m-d') }}" required>
+                        <label class="form-label">Sale Date <span class="text-danger">*</span></label>
+                        <input type="date" name="sale_date" class="form-control" value="{{ Carbon\Carbon::parse($sale->sale_date)->format('Y-m-d') }}" required>
                     </div>
                 </div>
 
-                {{-- Purchase Items Table --}}
+                {{-- Sale Items Table --}}
                 <div class="table-responsive mt-3">
                     <table class="table table-bordered">
-                        <thead class="table-light">
+                        <thead>
                             <tr>
                                 <th width="30%">Product</th>
                                 <th width="15%">Qty</th>
@@ -59,7 +52,7 @@
                             </tr>
                         </thead>
                         <tbody id="purchaseItems">
-                            @foreach($purchase->items as $item)
+                            @foreach($sale->items as $item)
                             <tr>
                                 <td>
                                     <select name="product[]" class="form-select product select2" required>
@@ -95,7 +88,7 @@
                 <div class="row justify-content-end mt-3">
                     <div class="col-md-4">
                         <label class="form-label">Total Amount</label>
-                        <input type="number" name="total_amount" id="totalAmount" class="form-control" value="{{ $purchase->total_amount }}" readonly>
+                        <input type="number" name="total_amount" id="totalAmount" class="form-control" value="{{ $sale->total_amount }}" readonly>
                     </div>
                 </div>
 

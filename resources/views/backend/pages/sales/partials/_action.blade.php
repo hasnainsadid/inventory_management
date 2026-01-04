@@ -8,7 +8,7 @@
 
             @if (hasPermission(['products.edit']))
                 <!-- Edit Button -->
-                <a href="{{ route('purchases.edit', $row->id) }}" class="dropdown-item waves-effect edit-btn" data-id="{{ $row->id }}">
+                <a href="{{ route('sales.edit', $row->id) }}" class="dropdown-item waves-effect edit-btn" data-id="{{ $row->id }}">
                     <i class="icon-base ti tabler-pencil"></i> Edit
                 </a>
             @endif

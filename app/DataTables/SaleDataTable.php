@@ -19,6 +19,7 @@ class SaleDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->editColumn('sale_date', fn($row) => \Carbon\Carbon::parse($row->purchase_date)->format('d M, Y'))
             ->editColumn('created_at', fn($row) => $row->created_at->diffForHumans())
             ->addColumn('action', fn($row) => view('backend.pages.sales.partials._action', compact('row'))->render())
             ->rawColumns(['action']);
@@ -59,9 +60,9 @@ class SaleDataTable extends DataTable
     public function getColumns(): array
     {
         $column = [
-            Column::make('invoice no'),
-            Column::make('Sale date'),
-            Column::make('total amount'),
+            Column::make('invoice_no'),
+            Column::make('sale_date'),
+            Column::make('total_amount'),
             Column::make('created_by'),
             Column::make('created_at'),
         ];
