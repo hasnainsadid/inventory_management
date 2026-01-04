@@ -226,4 +226,77 @@ class SaleController extends Controller
             return back();
         }
     }
+
+    public function recycleBin()
+    {
+        $sales = Sale::onlyTrashed()->get();
+        return view('backend.pages.recycle.sale', compact('sales'));
+    }
+
+    public function restore($id)
+    {
+        DB::beginTransaction();
+
+        try {
+            $sale = Sale::withTrashed()
+                ->with(['items' => fn($q) => $q->withTrashed()])
+                ->findOrFail($id);
+
+            // 🔹 Check stock availability
+            foreach ($sale->items as $item) {
+                $stock = ProductStock::where('product_id', $item->product_id)->first();
+
+                if (! $stock || $stock->stock < $item->quantity) {
+                    throw new \Exception('Not enough stock to restore this sale.');
+                }
+            }
+
+            // 🔹 Restore sale & items
+            $sale->restore();
+            $sale->items()->restore();
+
+            // 🔹 Deduct stock again
+            foreach ($sale->items as $item) {
+                ProductStock::where('product_id', $item->product_id)
+                    ->decrement('stock', $item->quantity);
+            }
+
+            DB::commit();
+            notify()->success('Sale restored successfully');
+            return back();
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            notify()->error($th->getMessage());
+            return back();
+        }
+
+    }
+
+    public function forceDelete($id)
+    {
+        DB::beginTransaction();
+
+        try {
+            $sale = Sale::withTrashed()
+                ->with(['items' => fn($q) => $q->withTrashed()])
+                ->findOrFail($id);
+
+            // 🔹 Permanently delete sale items
+            $sale->items()->forceDelete();
+
+            // 🔹 Permanently delete sale
+            $sale->forceDelete();
+
+            DB::commit();
+            notify()->success('Sale permanently deleted');
+            return back();
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            notify()->error($th->getMessage());
+            return back();
+        }
+
+    }
 }

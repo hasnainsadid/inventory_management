@@ -23,9 +23,9 @@ class ProductStocksTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'product_id' => 1,
-                'stock' => 20,
+                'stock' => 11,
                 'created_at' => '2026-01-04 15:22:17',
-                'updated_at' => '2026-01-04 15:22:53',
+                'updated_at' => '2026-01-05 00:00:16',
             ),
             1 => 
             array (

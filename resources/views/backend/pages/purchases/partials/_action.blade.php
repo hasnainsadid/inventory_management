@@ -1,4 +1,4 @@
-@if (hasPermission(['products.edit']) || hasPermission(['products.destroy']))
+@if (hasPermission(['purchases.edit']) || hasPermission(['purchases.destroy']))
 
     <div class="dropdown">
         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -6,14 +6,14 @@
         </button>
         <div class="dropdown-menu">
 
-            @if (hasPermission(['products.edit']))
+            @if (hasPermission(['purchases.edit']))
                 <!-- Edit Button -->
                 <a href="{{ route('purchases.edit', $row->id) }}" class="dropdown-item waves-effect edit-btn" data-id="{{ $row->id }}">
                     <i class="icon-base ti tabler-pencil"></i> Edit
                 </a>
             @endif
 
-            @if (hasPermission(['products.destroy']))
+            @if (hasPermission(['purchases.destroy']))
                 <!-- Delete Button -->
                 <a class="dropdown-item waves-effect" href="javascript:void(0);"
                     onclick="event.preventDefault(); document.getElementById('delete-{{ $row->id }}').submit();">
@@ -21,7 +21,7 @@
                 </a>
 
                 <!-- Hidden Delete Form -->
-                <form id="delete-{{ $row->id }}" action="{{ route('products.destroy', $row->id) }}"
+                <form id="delete-{{ $row->id }}" action="{{ route('purchases.destroy', $row->id) }}"
                     method="POST" class="d-none">
                     @csrf
                     @method('DELETE')

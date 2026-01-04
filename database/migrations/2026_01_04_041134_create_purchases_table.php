@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('purchase_date');
             $table->decimal('total_amount', 10, 2);
             $table->string('created_by');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('customer_name')->nullable();
             $table->decimal('total_amount', 10, 2)->nullable();
             $table->string('created_by')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
