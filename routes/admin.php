@@ -40,6 +40,12 @@ Route::middleware([
     Route::post('purchases/restore/{id}', [PurchaseController::class, 'restore'])->name('purchases.restore');
     Route::delete('purchases/force-delete/{id}', [PurchaseController::class, 'forceDelete'])->name('purchases.forceDelete');
 
+    // sales
+    Route::resource('sales', PurchaseController::class)->except(['show']);
+    Route::get('sales/recycle-bin', [PurchaseController::class, 'recycleBin'])->name('sales.recycleBin');
+    Route::post('sales/restore/{id}', [PurchaseController::class, 'restore'])->name('sales.restore');
+    Route::delete('sales/force-delete/{id}', [PurchaseController::class, 'forceDelete'])->name('sales.forceDelete');
+
     // contact
     Route::resource('contacts', ContactController::class)->only(['index', 'destroy']);
     Route::get('contacts/recycle-bin', [ContactController::class, 'recycleBin'])->name('contacts.recycleBin');

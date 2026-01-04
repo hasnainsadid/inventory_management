@@ -1,22 +1,22 @@
 @extends('backend.layouts.app')
 
-@section('title', 'Add New Purchase')
+@section('title', 'Add New Sale')
 
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <!-- Basic Bootstrap Table -->
         <div class="card">
             <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-header">Add New Purchase</h5>
-                @if (hasPermission(['purchases.index']))
+                <h5 class="card-header">Add New Sale</h5>
+                @if (hasPermission(['sales.index']))
                     {{-- <button class="btn btn-primary btn-sm mx-5">Add New</button> --}}
-                    <a href="{{ route('purchases.index') }}" class="btn btn-primary btn-sm mx-5">
-                        All Purchases
+                    <a href="{{ route('sales.index') }}" class="btn btn-primary btn-sm mx-5">
+                        All Sales
                     </a>
                 @endif
             </div>
             <div class="card-body">
-                <form action="{{ route('purchases.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('sales.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-md-4 mb-3">
@@ -36,8 +36,8 @@
                         </div>
 
                         <div class="col-md-4 mb-3">
-                            <label class="form-label">Purchase Date</label>
-                            <input type="date" name="purchase_date" class="form-control" value="{{ date('Y-m-d') }}"
+                            <label class="form-label">Sale Date</label>
+                            <input type="date" name="sale_date" class="form-control" value="{{ date('Y-m-d') }}"
                                 required>
                         </div>
                     </div>

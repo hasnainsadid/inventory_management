@@ -25,10 +25,10 @@ class PurchasesTableSeeder extends Seeder
                 'supplier_id' => 2,
                 'invoice_no' => 'PUR-1767504881',
                 'purchase_date' => '2026-01-04',
-                'total_amount' => '11490.00',
+                'total_amount' => '14815.00',
                 'created_by' => 'Hasnain Sadid',
                 'created_at' => '2026-01-04 11:56:00',
-                'updated_at' => '2026-01-04 11:56:00',
+                'updated_at' => '2026-01-04 15:22:53',
             ),
         ));
         

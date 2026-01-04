@@ -26,13 +26,13 @@ class ProductsTableSeeder extends Seeder
                 'name' => 'Renee Schultz',
                 'slug' => 'renee-schultz',
                 'sku' => 'Abc-2545686',
-                'image' => 'product/image_1767437776_6958f5d029a8c.png',
+                'image' => 'product/renee-schultz_1767518727.png',
                 'unit' => 'Kg',
                 'purchase_price' => '145',
                 'sale_price' => '250',
                 'alert_quantity' => '5',
                 'created_at' => '2026-01-03 10:56:16',
-                'updated_at' => '2026-01-03 10:56:16',
+                'updated_at' => '2026-01-04 15:25:27',
             ),
             1 => 
             array (
@@ -41,13 +41,13 @@ class ProductsTableSeeder extends Seeder
                 'name' => 'Della',
                 'slug' => 'della',
                 'sku' => 'BTZ078459',
-                'image' => 'product/image_1767437992_6958f6a8ad50a.png',
+                'image' => 'product/della_1767518741.png',
                 'unit' => 'Kg',
                 'purchase_price' => '123',
                 'sale_price' => '250',
                 'alert_quantity' => '5',
                 'created_at' => '2026-01-03 10:59:52',
-                'updated_at' => '2026-01-03 10:59:52',
+                'updated_at' => '2026-01-04 15:25:41',
             ),
             2 => 
             array (
