@@ -125,8 +125,12 @@
         $('#addRow').click(function() {
             let row = $('#purchaseItems tr:first').clone();
             row.find('input').val('');
-            row.find('select').val('');
+            row.find('select')
+            .removeClass('select2-hidden-accessible')
+                .next('.select2').remove();
             $('#purchaseItems').append(row);
+
+            $('#purchaseItems tr:last .select2').select2();
         });
 
         // remove row
