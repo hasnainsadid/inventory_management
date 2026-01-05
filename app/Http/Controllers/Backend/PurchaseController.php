@@ -255,7 +255,7 @@ class PurchaseController extends Controller
             // Deduct stock again
             foreach ($purchase->items as $item) {
                 ProductStock::where('product_id', $item->product_id)
-                    ->decrement('stock', $item->quantity);
+                    ->increment('stock', $item->quantity);
             }
 
             DB::commit();

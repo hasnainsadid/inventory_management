@@ -151,6 +151,13 @@
                         </a>
                     </li>
                 @endif
+                @if (hasPermission(['purchases.destroy'])) 
+                    <li class="menu-item {{ request()->routeIs('purchases.recycleBin') ? 'active' : '' }}">
+                        <a href="{{ route('purchases.recycleBin') }}" class="menu-link">
+                            <div>Purchases</div>
+                        </a>
+                    </li>
+                @endif
                 @if (hasPermission(['sales.destroy'])) 
                     <li class="menu-item {{ request()->routeIs('sales.recycleBin') ? 'active' : '' }}">
                         <a href="{{ route('sales.recycleBin') }}" class="menu-link">
