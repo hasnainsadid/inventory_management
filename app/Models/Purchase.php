@@ -4,9 +4,11 @@ namespace App\Models;
 
 use App\Models\PurchaseItem;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Purchase extends Model
 {
+    use SoftDeletes;
     protected $guarded = [];
 
     public function items()

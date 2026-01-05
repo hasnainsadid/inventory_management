@@ -10,6 +10,7 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Throwable;
 
 class PurchaseController extends Controller
 {
@@ -221,6 +222,74 @@ class PurchaseController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             notify()->error('Something went wrong! ' . $e->getMessage());
+            return back();
+        }
+    }
+
+    public function recycleBin()
+    {
+        $purchases = Purchase::onlyTrashed()->get();
+        return view('backend.pages.recycle.purchase', compact('purchases'));
+    }
+
+    public function restore($id)
+    {
+        DB::beginTransaction();
+
+        try {
+            $purchase = Purchase::withTrashed()->with(['items' => fn($q) => $q->withTrashed()])->findOrFail($id);
+
+            // Check stock availability
+            // foreach ($purchase->items as $item) {
+            //     $stock = ProductStock::where('product_id', $item->product_id)->first();
+
+            //     if (! $stock || $stock->stock < $item->quantity) {
+            //         throw new \Exception('Not enough stock to restore this purchase.');
+            //     }
+            // }
+
+            // Restore purchase & items
+            $purchase->restore();
+            $purchase->items()->restore();
+
+            // Deduct stock again
+            foreach ($purchase->items as $item) {
+                ProductStock::where('product_id', $item->product_id)
+                    ->decrement('stock', $item->quantity);
+            }
+
+            DB::commit();
+            notify()->success('Purchase restored successfully');
+            return redirect()->route('purchases.index');
+        } catch (Throwable $th) {
+            DB::rollBack();
+            notify()->error('Something went wrong! ' . $th->getMessage());
+            return back();
+        }
+    }
+
+    public function forceDelete($id)
+    {
+        DB::beginTransaction();
+
+        try {
+            $purchase = Purchase::withTrashed()
+                ->with(['items' => fn($q) => $q->withTrashed()])
+                ->findOrFail($id);
+
+            // Permanently delete purchase items
+            $purchase->items()->forceDelete();
+
+            // Permanently delete purchase
+            $purchase->forceDelete();
+
+            DB::commit();
+            notify()->success('Purchase permanently deleted');
+            return back();
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            notify()->error($th->getMessage());
             return back();
         }
     }
