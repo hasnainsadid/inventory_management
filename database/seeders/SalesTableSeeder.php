@@ -27,6 +27,7 @@ class SalesTableSeeder extends Seeder
                 'customer_name' => 'Hasnain Fayez',
                 'total_amount' => '2250.00',
                 'created_by' => 'Hasnain Sadid',
+                'deleted_at' => NULL,
                 'created_at' => '2026-01-04 22:29:50',
                 'updated_at' => '2026-01-05 00:00:16',
             ),

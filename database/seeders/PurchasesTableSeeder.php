@@ -27,8 +27,9 @@ class PurchasesTableSeeder extends Seeder
                 'purchase_date' => '2026-01-04',
                 'total_amount' => '14815.00',
                 'created_by' => 'Hasnain Sadid',
+                'deleted_at' => NULL,
                 'created_at' => '2026-01-04 11:56:00',
-                'updated_at' => '2026-01-04 15:22:53',
+                'updated_at' => '2026-01-05 15:52:48',
             ),
         ));
         

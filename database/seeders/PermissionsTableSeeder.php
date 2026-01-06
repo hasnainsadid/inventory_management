@@ -163,6 +163,102 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2025-12-29 10:29:26',
                 'updated_at' => '2025-12-29 10:29:26',
             ),
+            18 => 
+            array (
+                'id' => 19,
+                'name' => 'products.create',
+                'guard_name' => 'web',
+                'created_at' => '2026-01-06 10:10:40',
+                'updated_at' => '2026-01-06 10:10:40',
+            ),
+            19 => 
+            array (
+                'id' => 20,
+                'name' => 'products.destroy',
+                'guard_name' => 'web',
+                'created_at' => '2026-01-06 10:10:40',
+                'updated_at' => '2026-01-06 10:10:40',
+            ),
+            20 => 
+            array (
+                'id' => 21,
+                'name' => 'products.edit',
+                'guard_name' => 'web',
+                'created_at' => '2026-01-06 10:10:40',
+                'updated_at' => '2026-01-06 10:10:40',
+            ),
+            21 => 
+            array (
+                'id' => 22,
+                'name' => 'products.index',
+                'guard_name' => 'web',
+                'created_at' => '2026-01-06 10:10:40',
+                'updated_at' => '2026-01-06 10:10:40',
+            ),
+            22 => 
+            array (
+                'id' => 23,
+                'name' => 'purchases.create',
+                'guard_name' => 'web',
+                'created_at' => '2026-01-06 10:10:40',
+                'updated_at' => '2026-01-06 10:10:40',
+            ),
+            23 => 
+            array (
+                'id' => 24,
+                'name' => 'purchases.destroy',
+                'guard_name' => 'web',
+                'created_at' => '2026-01-06 10:10:40',
+                'updated_at' => '2026-01-06 10:10:40',
+            ),
+            24 => 
+            array (
+                'id' => 25,
+                'name' => 'purchases.edit',
+                'guard_name' => 'web',
+                'created_at' => '2026-01-06 10:10:40',
+                'updated_at' => '2026-01-06 10:10:40',
+            ),
+            25 => 
+            array (
+                'id' => 26,
+                'name' => 'purchases.index',
+                'guard_name' => 'web',
+                'created_at' => '2026-01-06 10:10:40',
+                'updated_at' => '2026-01-06 10:10:40',
+            ),
+            26 => 
+            array (
+                'id' => 27,
+                'name' => 'sales.create',
+                'guard_name' => 'web',
+                'created_at' => '2026-01-06 10:10:40',
+                'updated_at' => '2026-01-06 10:10:40',
+            ),
+            27 => 
+            array (
+                'id' => 28,
+                'name' => 'sales.destroy',
+                'guard_name' => 'web',
+                'created_at' => '2026-01-06 10:10:40',
+                'updated_at' => '2026-01-06 10:10:40',
+            ),
+            28 => 
+            array (
+                'id' => 29,
+                'name' => 'sales.edit',
+                'guard_name' => 'web',
+                'created_at' => '2026-01-06 10:10:40',
+                'updated_at' => '2026-01-06 10:10:40',
+            ),
+            29 => 
+            array (
+                'id' => 30,
+                'name' => 'sales.index',
+                'guard_name' => 'web',
+                'created_at' => '2026-01-06 10:10:40',
+                'updated_at' => '2026-01-06 10:10:40',
+            ),
         ));
         
         

@@ -102,6 +102,28 @@
                 </a>
             </li>
         @endif
+        
+        {{-- Reports --}}
+        <li class="menu-header small">
+            <span class="menu-header-text">Reports</span>
+        </li>
+
+        <li class="menu-item {{ request()->routeIs('reports.*') ? 'open active' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon icon-base ti tabler-recycle"></i>
+                <div>Reports</div>
+            </a>
+            <ul class="menu-sub">
+                @if (hasPermission(['reports.stock'])) 
+                    <li class="menu-item {{ request()->routeIs('reports.stock') ? 'active' : '' }}">
+                        <a href="{{ route('reports.stock') }}" class="menu-link">
+                            <div>Stock</div>
+                        </a>
+                    </li>
+                @endif
+            </ul>
+        </li>
+
 
         <li class="menu-header small">
             <span class="menu-header-text">Role & Permission</span>

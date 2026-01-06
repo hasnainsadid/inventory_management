@@ -57,7 +57,7 @@
                                     <th width="20%">Price</th>
                                     <th width="20%">Subtotal</th>
                                     <th width="5%">
-                                        <button type="button" class="btn btn-sm btn-success" id="addRow">+</button>
+                                        <button type="button" class="btn btn-sm btn-primary" id="addRow">+</button>
                                     </th>
                                 </tr>
                             </thead>

@@ -27,6 +27,7 @@ class SaleItemsTableSeeder extends Seeder
                 'quantity' => 9,
                 'price' => '250.00',
                 'subtotal' => '2250.00',
+                'deleted_at' => NULL,
                 'created_at' => '2026-01-05 00:00:16',
                 'updated_at' => '2026-01-05 00:00:16',
             ),

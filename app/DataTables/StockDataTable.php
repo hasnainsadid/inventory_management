@@ -9,35 +9,38 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class ProductDataTable extends DataTable
+class StockDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
      *
-     * @param QueryBuilder<Product> $query Results from query() method.
+     * @param QueryBuilder<Stock> $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->editColumn('image', fn($row) => '<img src="' . imageShow($row->image) . '" width="50" height="50" />')
+            ->editColumn('product_name', fn($row) => $row->name)
             ->editColumn('category', fn($row) => $row->category->name)
-            ->addColumn('action', fn($row) => view('backend.pages.products.partials._action', compact('row'))->render())
+            ->editColumn('stock', fn($row) => $row->stock->stock)
+            ->editColumn('status', fn($row) => 
+                $row->stock->stock <= 0 ? '<span class="badge bg-danger">Out of Stock</span>' : ($row->stock->stock < $row->alert_quantity ? '<span class="badge bg-warning">Low Stock</span>' : '<span class="badge bg-success">In Stock</span>'))
+            
             ->filterColumn('category', function ($query, $keyword) {
                 $query->whereHas('category', function ($q) use ($keyword) {
                     $q->where('name', 'like', "%{$keyword}%");
                 });
             })
-            ->rawColumns(['image', 'action']);
+            ->rawColumns(['status']);
     }
 
     /**
      * Get the query source of dataTable.
      *
-     * @return QueryBuilder<Product>
+     * @return QueryBuilder<Stock>
      */
     public function query(Product $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with(['category', 'stock']);
     }
 
     /**
@@ -46,7 +49,6 @@ class ProductDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('product-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1)
@@ -65,24 +67,13 @@ class ProductDataTable extends DataTable
     public function getColumns(): array
     {
         $column = [
-            Column::make('image'),
-            Column::make('name'),
-            Column::make('category'),
-            Column::make('sku'),
-            Column::make('unit'),
-            Column::make('purchase_price'),
-            Column::make('sale_price'),
-            Column::make('alert_quantity'),
+            Column::computed('product_name')->title('Product'),
+            Column::computed('category')->title('Category'),
+            Column::computed('stock')->title('Stock')->searchable(false)->orderable(false),
+            Column::computed('status')->title('Status')->searchable(false)->orderable(false),
         ];
-        if (hasPermission(['products.edit', 'products.destroy'])) {
-            $column[] = Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center');
-        }
-
         return $column;
+
     }
 
     /**
@@ -90,6 +81,6 @@ class ProductDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Product_' . date('YmdHis');
+        return 'Stock_' . date('YmdHis');
     }
 }

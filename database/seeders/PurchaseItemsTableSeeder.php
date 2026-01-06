@@ -27,8 +27,9 @@ class PurchaseItemsTableSeeder extends Seeder
                 'quantity' => 20,
                 'price' => '145.00',
                 'subtotal' => '2900.00',
+                'deleted_at' => NULL,
                 'created_at' => '2026-01-04 15:22:53',
-                'updated_at' => '2026-01-04 15:22:53',
+                'updated_at' => '2026-01-05 15:52:48',
             ),
             1 => 
             array (
@@ -38,8 +39,9 @@ class PurchaseItemsTableSeeder extends Seeder
                 'quantity' => 25,
                 'price' => '123.00',
                 'subtotal' => '3075.00',
+                'deleted_at' => NULL,
                 'created_at' => '2026-01-04 15:22:53',
-                'updated_at' => '2026-01-04 15:22:53',
+                'updated_at' => '2026-01-05 15:52:48',
             ),
             2 => 
             array (
@@ -49,8 +51,9 @@ class PurchaseItemsTableSeeder extends Seeder
                 'quantity' => 17,
                 'price' => '520.00',
                 'subtotal' => '8840.00',
+                'deleted_at' => NULL,
                 'created_at' => '2026-01-04 15:22:53',
-                'updated_at' => '2026-01-04 15:22:53',
+                'updated_at' => '2026-01-05 15:52:48',
             ),
         ));
         

@@ -23,9 +23,9 @@ class ProductStocksTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'product_id' => 1,
-                'stock' => 11,
+                'stock' => 20,
                 'created_at' => '2026-01-04 15:22:17',
-                'updated_at' => '2026-01-05 00:00:16',
+                'updated_at' => '2026-01-05 15:52:48',
             ),
             1 => 
             array (
@@ -33,7 +33,7 @@ class ProductStocksTableSeeder extends Seeder
                 'product_id' => 2,
                 'stock' => 25,
                 'created_at' => '2026-01-04 15:22:17',
-                'updated_at' => '2026-01-04 15:22:53',
+                'updated_at' => '2026-01-05 15:52:48',
             ),
             2 => 
             array (
@@ -41,7 +41,7 @@ class ProductStocksTableSeeder extends Seeder
                 'product_id' => 3,
                 'stock' => 17,
                 'created_at' => '2026-01-04 15:22:17',
-                'updated_at' => '2026-01-04 15:22:53',
+                'updated_at' => '2026-01-05 15:52:48',
             ),
         ));
         

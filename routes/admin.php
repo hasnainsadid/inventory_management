@@ -2,12 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\SaleController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\StockController;
 use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\PurchaseController;
-use App\Http\Controllers\Backend\SaleController;
 use App\Http\Controllers\Backend\SupplierController;
 
 Route::middleware([
@@ -67,4 +68,7 @@ Route::middleware([
     Route::get('users/recycle-bin', [UserController::class, 'recycleBin'])->name('users.recycleBin');
     Route::post('users/restore/{id}', [UserController::class, 'restore'])->name('users.restore');
     Route::delete('users/force-delete/{id}', [UserController::class, 'forceDelete'])->name('users.forceDelete');
+
+    // report
+    Route::get('stock-report', [StockController::class, 'index'])->name('reports.stock');
 });
